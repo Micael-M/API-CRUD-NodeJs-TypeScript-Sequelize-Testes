@@ -1,7 +1,6 @@
 version: '3.9'
 services:
   frontend:
-    container_name: app_frontend
     build: ./frontend
     ports:
       - 3000:3000
@@ -33,7 +32,6 @@ services:
       # Dica: Relembre aqui da comunicação interna entre containers
       - DB_USER=root
       - DB_PASS=123456
-      - DB_NAME=TRYBE_FUTEBOL_CLUBE
       - DB_HOST=db
       - DB_PORT=3306
     healthcheck:
