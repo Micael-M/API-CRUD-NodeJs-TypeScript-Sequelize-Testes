@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      homeTeam: {
+      home_team: {
         type: Sequelize.STRING
       },
       home_team_goals: {
