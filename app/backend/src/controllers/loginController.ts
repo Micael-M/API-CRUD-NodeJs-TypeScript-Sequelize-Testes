@@ -10,6 +10,9 @@ loginController.post(
   async (req: Request, res: Response) => {
     const credentials = req.body;
     const resultLogin = await loginService.login(credentials);
+    if (resultLogin === undefined) {
+      return res.status(401).json({ message: 'Incorrect email or password' });
+    }
     return res.status(200).json(resultLogin);
   },
 );
