@@ -19,14 +19,17 @@ const login = async (credentials: ILogin) => {
 
   const createToken = await JWT.createToken(resultLogin.role);
   return {
-    user: {
-      id: resultLogin.id,
-      username: resultLogin.username,
-      role: resultLogin.role,
-      email,
-    },
     token: createToken,
   };
+  // return {
+  //   user: {
+  //     id: resultLogin.id,
+  //     username: resultLogin.username,
+  //     role: resultLogin.role,
+  //     email,
+  //   },
+  //   token: createToken,
+  // };
 };
 
 export default {
