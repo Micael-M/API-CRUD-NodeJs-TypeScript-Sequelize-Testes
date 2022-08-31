@@ -1,6 +1,7 @@
 import { compare } from 'bcryptjs';
 import { ILogin } from '../interfaces/interface';
 import User from '../database/models/User';
+import JWT from '../utils/jwtToken';
 
 const checkPassword = async (password: string, payload: string) => {
   const resultCheck = await compare(password, payload);
@@ -16,7 +17,16 @@ const login = async (credentials: ILogin) => {
   const verifyPassword = await checkPassword(password, resultLogin.password);
   if (!verifyPassword) return { error: { message: 'Incorrect email or password' } };
 
-  return resultLogin;
+  const createToken = await JWT.createToken(resultLogin.role);
+  return {
+    user: {
+      id: resultLogin.id,
+      username: resultLogin.username,
+      role: resultLogin.role,
+      email,
+    },
+    token: createToken,
+  };
 };
 
 export default {
