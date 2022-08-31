@@ -23,6 +23,16 @@ const login = async (credentials: ILogin) => {
   };
 };
 
+const getRole = async (authorization: any) => {
+  console.log(authorization);
+  const validateToken = await JWT.decodeToken(authorization);
+  const [resultRole] = Object.values(validateToken);
+  return {
+    role: resultRole,
+  };
+};
+
 export default {
   login,
+  getRole,
 };

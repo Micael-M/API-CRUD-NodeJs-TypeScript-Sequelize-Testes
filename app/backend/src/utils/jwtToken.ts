@@ -1,4 +1,4 @@
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 
 const secreteKey = process.env.SECRET_KEY || 'anything';
 
@@ -10,6 +10,12 @@ const createToken = (payload: string, expire = '60m') => {
   return token;
 };
 
+const decodeToken = (payload: string) => {
+  const resultDecode = verify(payload, secreteKey);
+  return resultDecode;
+};
+
 export default {
   createToken,
+  decodeToken,
 };

@@ -17,4 +17,10 @@ loginController.post(
   },
 );
 
+loginController.get('/validate', async (req: Request, res: Response) => {
+  const { authorization } = req.headers;
+  const resultRole = await loginService.getRole(authorization);
+  return res.status(200).json(resultRole);
+});
+
 export default loginController;
