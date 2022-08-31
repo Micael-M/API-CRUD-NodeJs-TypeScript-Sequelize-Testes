@@ -15,21 +15,12 @@ const login = async (credentials: ILogin) => {
     return undefined;
   }
   const verifyPassword = await checkPassword(password, resultLogin.password);
-  if (!verifyPassword) return { error: { message: 'Incorrect email or password' } };
+  if (!verifyPassword) return undefined;
 
   const createToken = await JWT.createToken(resultLogin.role);
   return {
     token: createToken,
   };
-  // return {
-  //   user: {
-  //     id: resultLogin.id,
-  //     username: resultLogin.username,
-  //     role: resultLogin.role,
-  //     email,
-  //   },
-  //   token: createToken,
-  // };
 };
 
 export default {
