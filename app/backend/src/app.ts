@@ -1,5 +1,6 @@
 import * as express from 'express';
 import loginController from './controllers/loginController';
+import teamController from './controllers/teamController'
 
 class App {
   public app: express.Express;
@@ -25,6 +26,7 @@ class App {
     this.app.use(express.json());
 
     this.app.use('/login', loginController);
+    this.app.use('/teams', teamController);
   }
 
   public start(PORT: string | number):void {
