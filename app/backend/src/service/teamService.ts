@@ -5,6 +5,12 @@ const getTeams = async (): Promise<Team[]> => {
   return resultTeams;
 };
 
+const getTemaById = async (id: number): Promise<Team> => {
+  const resultTeamId = await Team.findByPk(id);
+  return resultTeamId as Team;
+};
+
 export default {
   getTeams,
+  getTemaById,
 };
