@@ -1,7 +1,7 @@
 import * as express from 'express';
 import loginController from './controllers/loginController';
 import matchController from './controllers/matchController';
-import teamController from './controllers/teamController'
+import teamController from './controllers/teamController';
 
 class App {
   public app: express.Express;
