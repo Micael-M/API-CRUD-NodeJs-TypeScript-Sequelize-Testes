@@ -1,5 +1,6 @@
 import * as express from 'express';
 import loginController from './controllers/loginController';
+import matchController from './controllers/matchController';
 import teamController from './controllers/teamController'
 
 class App {
@@ -27,6 +28,7 @@ class App {
 
     this.app.use('/login', loginController);
     this.app.use('/teams', teamController);
+    this.app.use('/matches', matchController);
   }
 
   public start(PORT: string | number):void {
