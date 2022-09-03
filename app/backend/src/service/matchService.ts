@@ -1,6 +1,7 @@
 import Team from '../database/models/Team';
 import Match from '../database/models/Match';
-import { IMatch } from '../interfaces/interface';
+import { IMatch, ICreateMatch } from '../interfaces/interface';
+import jwtToken from '../utils/jwtToken';
 
 const getAllMatchs = async (): Promise<IMatch[]> => {
   const resultMatches = await Match.findAll({
@@ -25,7 +26,14 @@ const getMatchesFiltred = async (queryParams: boolean): Promise<IMatch[]> => {
   return resultMatchesFiltred as IMatch[];
 };
 
+const createMatch = async (dataMatch: ICreateMatch, token: any) => {
+  await jwtToken.decodeToken(token);
+  const restultCreateMatch = await Match.create(dataMatch);
+  return restultCreateMatch;
+};
+
 export default {
   getAllMatchs,
   getMatchesFiltred,
+  createMatch,
 };

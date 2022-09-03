@@ -15,8 +15,18 @@ interface IMatch extends Match {
   teamAway: object,
 }
 
+interface ICreateMatch {
+  id?: number;
+  homeTeam: number;
+  awayTeam: number;
+  homeTeamGoals: number;
+  awayTeamGoals: number;
+  inProgress?: boolean;
+}
+
 export {
   IUser,
   ILogin,
   IMatch,
+  ICreateMatch,
 };
