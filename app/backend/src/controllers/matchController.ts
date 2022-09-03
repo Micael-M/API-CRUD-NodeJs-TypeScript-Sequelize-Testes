@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 import matchService from '../service/matchService';
+import matchValidate from './middlewares/matchValidate';
 import validateToken from './middlewares/validateToken';
 
 const matchController = Router();
@@ -19,10 +20,11 @@ matchController.get('/', async (req: Request, res: Response) => {
 matchController.post(
   '/',
   validateToken.checkToken,
+  matchValidate.checkDataMatch,
   async (req: Request, res: Response) => {
     const { authorization } = req.headers;
-    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = req.body;
-    const dataCreateMatch = { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals };
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = req.body;
+    const dataCreateMatch = { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress };
     const restultCreateMatch = await matchService.createMatch(dataCreateMatch, authorization);
     return res.status(201).json(restultCreateMatch);
   },
