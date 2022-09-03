@@ -30,4 +30,10 @@ matchController.post(
   },
 );
 
+matchController.patch('/:id/finish', async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const resultfinishMatch = await matchService.matchFinish(Number(id));
+  return res.status(200).json(resultfinishMatch.message);
+});
+
 export default matchController;

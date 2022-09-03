@@ -27,16 +27,21 @@ const getMatchesFiltred = async (queryParams: boolean): Promise<IMatch[]> => {
 };
 
 const createMatch = async (dataMatch: ICreateMatch, token: any) => {
-  console.log('Dentro do Match Service');
   await jwtToken.decodeToken(token);
-  // console.log(token);
-  // console.log(dataMatch);
   const restultCreateMatch = await Match.create(dataMatch);
   return restultCreateMatch;
+};
+
+const matchFinish = async (id: number) => {
+  await Match.update({ inProgress: false }, { where: { id } });
+  return {
+    message: 'Finished',
+  };
 };
 
 export default {
   getAllMatchs,
   getMatchesFiltred,
   createMatch,
+  matchFinish,
 };
