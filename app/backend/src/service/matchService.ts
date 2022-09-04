@@ -27,16 +27,20 @@ const getMatchesFiltred = async (queryParams: boolean): Promise<IMatch[]> => {
 };
 
 const tokenValidation = async (token: string) => {
+  console.log('Entrou na tokenValidation');
   try {
-    jwtToken.decodeToken(token);
+    const result = jwtToken.decodeToken(token);
+    return result;
   } catch (err) {
     return undefined; // { message: 'Token must be a valid token' }
   }
 };
 
 const createMatch = async (dataMatch: ICreateMatch, token: any) => {
-  // await jwtToken.decodeToken(token);
-  await tokenValidation(token);
+  const resultCheckToken = await tokenValidation(token);
+  if (resultCheckToken === undefined) {
+    return undefined;
+  }
   const restultCreateMatch = await Match.create(dataMatch);
   return restultCreateMatch;
 };
