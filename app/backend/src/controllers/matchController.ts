@@ -26,6 +26,9 @@ matchController.post(
     const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = req.body;
     const dataCreateMatch = { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress };
     const restultCreateMatch = await matchService.createMatch(dataCreateMatch, authorization);
+    if (restultCreateMatch === undefined) {
+      res.status(401).json({ message: 'Token must be a valid token' });
+    }
     return res.status(201).json(restultCreateMatch);
   },
 );

@@ -26,8 +26,17 @@ const getMatchesFiltred = async (queryParams: boolean): Promise<IMatch[]> => {
   return resultMatchesFiltred as IMatch[];
 };
 
+const tokenValidation = async (token: string) => {
+  try {
+    jwtToken.decodeToken(token);
+  } catch (err) {
+    return undefined; // { message: 'Token must be a valid token' }
+  }
+};
+
 const createMatch = async (dataMatch: ICreateMatch, token: any) => {
-  await jwtToken.decodeToken(token);
+  // await jwtToken.decodeToken(token);
+  await tokenValidation(token);
   const restultCreateMatch = await Match.create(dataMatch);
   return restultCreateMatch;
 };
@@ -44,4 +53,5 @@ export default {
   getMatchesFiltred,
   createMatch,
   matchFinish,
+  tokenValidation,
 };

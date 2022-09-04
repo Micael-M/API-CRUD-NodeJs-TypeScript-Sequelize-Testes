@@ -24,9 +24,14 @@ interface ICreateMatch {
   inProgress?: boolean;
 }
 
+interface IToken {
+  token: string
+}
+
 export {
   IUser,
   ILogin,
   IMatch,
   ICreateMatch,
+  IToken,
 };
