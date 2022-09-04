@@ -39,4 +39,11 @@ matchController.patch('/:id/finish', async (req: Request, res: Response) => {
   return res.status(200).json(resultfinishMatch.message);
 });
 
+matchController.patch('/:id', async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { homeTeamGoals, awayTeamGoals } = req.body;
+  const resultUpdateMatch = await matchService.updateMatch(homeTeamGoals, awayTeamGoals, id);
+  return res.status(200).json(resultUpdateMatch.message);
+});
+
 export default matchController;
