@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import matchService from '../service/matchService';
-import matchValidate from './middlewares/matchValidate';
-import validateToken from './middlewares/validateToken';
+import matchValidate from '../utils/middlewares/matchValidate';
+import validateToken from '../utils/middlewares/validateToken';
 
 const matchController = Router();
 
