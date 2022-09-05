@@ -24,8 +24,17 @@ interface ICreateMatch {
   inProgress?: boolean;
 }
 
-interface IToken {
-  token: string
+interface IClassification {
+  name: string;
+  totalPoints: number;
+  totalGames: number;
+  totalVictories: number;
+  totalDraws: number;
+  totalLosses: number;
+  goalsFavor: number;
+  goalsOwn: number;
+  goalsBalance: number;
+  efficiency: number;
 }
 
 export {
@@ -33,5 +42,5 @@ export {
   ILogin,
   IMatch,
   ICreateMatch,
-  IToken,
+  IClassification,
 };
