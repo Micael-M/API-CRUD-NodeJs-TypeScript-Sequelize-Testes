@@ -6,14 +6,14 @@ import validateToken from '../utils/middlewares/validateToken';
 const matchController = Router();
 
 matchController.get('/', async (req: Request, res: Response) => {
-  let getMatches = [];
   const { inProgress } = req.query;
+  let getMatches = [];
 
-  if (!inProgress || undefined) {
-    getMatches = await matchService.getAllMatchs();
+  if (!inProgress) {
+    getMatches = await matchService.getAllMatches();
+  } else {
+    getMatches = await matchService.getMatchesFiltred(inProgress);
   }
-  const isProgressExist = inProgress !== 'false';
-  getMatches = await matchService.getMatchesFiltred(isProgressExist);
   return res.status(200).json(getMatches);
 });
 

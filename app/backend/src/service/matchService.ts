@@ -3,7 +3,7 @@ import Match from '../database/models/Match';
 import { IMatch, ICreateMatch } from '../interfaces/interface';
 import jwtToken from '../utils/jwtToken';
 
-const getAllMatchs = async (): Promise<IMatch[]> => {
+const getAllMatches = async (): Promise<Match[]> => {
   const resultMatches = await Match.findAll({
     attributes: ['id', 'homeTeam', 'homeTeamGoals', 'awayTeam', 'awayTeamGoals', 'inProgress'],
     include: [
@@ -11,12 +11,14 @@ const getAllMatchs = async (): Promise<IMatch[]> => {
       { model: Team, as: 'teamAway', attributes: ['teamName'] },
     ],
   });
-  return resultMatches as IMatch[];
+  return resultMatches as Match[];
 };
 
-const getMatchesFiltred = async (queryParams: boolean): Promise<IMatch[]> => {
+const getMatchesFiltred = async (queryParams: any): Promise<IMatch[]> => {
+  let isBool = false;
+  if (queryParams === 'true') isBool = true;
   const resultMatchesFiltred = await Match.findAll({
-    where: { inProgress: queryParams },
+    where: { inProgress: isBool },
     attributes: ['id', 'homeTeam', 'homeTeamGoals', 'awayTeam', 'awayTeamGoals', 'inProgress'],
     include: [
       { model: Team, as: 'teamHome', attributes: ['teamName'] },
@@ -27,7 +29,6 @@ const getMatchesFiltred = async (queryParams: boolean): Promise<IMatch[]> => {
 };
 
 const tokenValidation = async (token: string) => {
-  console.log('Entrou na tokenValidation');
   try {
     const result = jwtToken.decodeToken(token);
     return result;
@@ -58,7 +59,7 @@ const updateMatch = async (homeTeamGoals: number, awayTeamGoals: number, id: str
 };
 
 export default {
-  getAllMatchs,
+  getAllMatches,
   getMatchesFiltred,
   createMatch,
   matchFinish,
