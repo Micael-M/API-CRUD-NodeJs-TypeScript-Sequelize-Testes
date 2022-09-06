@@ -98,4 +98,106 @@ describe('Verifica se a API retorna os dados corretamente na rota /matches', asy
     expect(array.length).to.be.equal(4);
     expect(array).to.deep.equal(arrayMatches);
   });
+
+  it('busca pelos jogos finalizados no banco de dados, retornando um array e status "200", caso não haja falha', async () => {
+
+    chaiHttpResponse = await chai
+      .request(app)
+      .get('/matches?inProgress=false')
+    
+    const array = chaiHttpResponse.body;
+    
+    expect(chaiHttpResponse.status).to.be.equal(200);
+    expect(array.length).to.be.equal(4);
+    expect(array[0].inProgress).to.be.equal(false);
+    expect(array).to.deep.equal(arrayMatches);
+  });
+});
+
+describe('Verifica se a API retorna os dados corretamente, quando:', async () => {
+  let chaiHttpResponse: Response;
+
+  const matchesInProgress = [
+    {
+      id: 41,
+      homeTeam: 16,
+      homeTeamGoals: 2,
+      awayTeam: 9,
+      awayTeamGoals: 0,
+      inProgress: true,
+      teamHome: {
+          teamName: "São Paulo",
+      },
+      teamAway: {
+          teamName: "Internacional",
+      }
+    },
+    {
+      id: 42,
+      homeTeam: 6,
+      homeTeamGoals: 1,
+      awayTeam: 1,
+      awayTeamGoals: 0,
+      inProgress: true,
+      teamHome: {
+          teamName: 'Ferroviária',
+      },
+      teamAway: {
+          teamName: 'Avaí/Kindermann',
+      }
+    },
+    {
+      id: 43,
+      homeTeam: 11,
+      homeTeamGoals: 0,
+      awayTeam: 10,
+      awayTeamGoals: 0,
+      inProgress: true,
+      teamHome: {
+          teamName: 'Napoli-SC',
+      },
+      teamAway: {
+          teamName: 'Minas Brasília',
+      }
+    },
+    {
+      id: 44,
+      homeTeam: 7,
+      homeTeamGoals: 2,
+      awayTeam: 15,
+      awayTeamGoals: 2,
+      inProgress: true,
+      teamHome: {
+        teamName: 'Flamengo',
+      },
+      teamAway: {
+        teamName: 'São José-SP',
+      }
+    }
+  ];
+  
+  beforeEach(async () => {    
+     sinon
+      .stub(Match, "findAll")
+      .resolves(matchesInProgress as IMatch[]);
+  });
+
+  
+  afterEach(()=>{
+    (Match.findAll as sinon.SinonStub).restore();
+  })
+
+  it('busca pelos jogos em andamento no banco de dados, retornando um array e status "200", caso não haja falha', async () => {
+    
+    chaiHttpResponse = await chai
+      .request(app)
+      .get('/matches?inProgress=true')
+    
+    const array = chaiHttpResponse.body;
+    
+    expect(chaiHttpResponse.status).to.be.equal(200);
+    expect(array.length).to.be.equal(4);
+    expect(array[0].inProgress).to.be.equal(true);
+    expect(array).to.deep.equal(matchesInProgress);
+  });
 });

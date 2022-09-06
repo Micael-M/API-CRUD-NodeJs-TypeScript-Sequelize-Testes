@@ -49,4 +49,15 @@ describe('Verifica se a API retorna os dados corretamente na rota /teams', async
     expect(array.length).to.be.equal(6);
     expect(array).to.deep.equal(arrayTeams);
   });
+
+  it('busca de um time pelo id, retorna um objeto contendo "id","teamName" e status "200", caso não haja falha', async () => {
+    chaiHttpResponse = await chai
+      .request(app)
+      .get('/teams/1');
+    
+    expect(chaiHttpResponse.status).to.be.equal(200);
+    expect(chaiHttpResponse.body).to.have.property('id');
+    expect(chaiHttpResponse.body).to.have.property('teamName');
+    expect(chaiHttpResponse.body).to.deep.equal({ id: 1, teamName: 'Avaí/Kindermann'});
+  });
 });
