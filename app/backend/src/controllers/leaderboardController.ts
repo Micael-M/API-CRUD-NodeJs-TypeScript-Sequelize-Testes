@@ -3,7 +3,7 @@ import leaderboardService from '../service/leaderboardService';
 
 const leaderboard = Router();
 
-leaderboard.get('/home', async (req: Request, res: Response) => {
+leaderboard.get('/home', async (_req: Request, res: Response) => {
   const resultLeaderBoard = await leaderboardService.getHomeTeam();
   return res.status(200).json(resultLeaderBoard);
 });

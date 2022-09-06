@@ -9,6 +9,7 @@ loginController.post(
   loginValidate.validateLogin,
   async (req: Request, res: Response) => {
     const credentials = req.body;
+    console.log(credentials);
     const resultLogin = await loginService.login(credentials);
     if (resultLogin === undefined) {
       return res.status(401).json({ message: 'Incorrect email or password' });
