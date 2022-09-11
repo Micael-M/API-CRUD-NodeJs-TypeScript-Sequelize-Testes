@@ -10,7 +10,6 @@ leaderboard.get('/home', async (_req: Request, res: Response) => {
 });
 
 leaderboard.get('/away', async (_req: Request, res: Response) => {
-  console.log('Hello');
   const resultLeaderBoard = await awayService.getAwayTeamTable();
   return res.status(200).json(resultLeaderBoard);
 });

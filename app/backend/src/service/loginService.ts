@@ -14,7 +14,6 @@ const login = async (credentials: ILogin) => {
   if (resultLogin === null) {
     return undefined;
   }
-  console.log(resultLogin);
   const verifyPassword = await checkPassword(password, resultLogin.password);
   if (!verifyPassword) return undefined;
 
