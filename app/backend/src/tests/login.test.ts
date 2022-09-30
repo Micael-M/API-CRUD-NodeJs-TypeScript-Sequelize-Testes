@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Verifica se a API retorna os dados corretamente na rota /login.', async () => {
+describe('GET - /login.', async () => {
 
   beforeEach(async () => {
     sinon
@@ -42,7 +42,7 @@ describe('Verifica se a API retorna os dados corretamente na rota /login.', asyn
     expect(response.body).to.have.property('token');
   });
 
-  it('Em caso de sucesso, a propriedade "token" não é nulo.', async () => {
+  it('Em caso de sucesso, a propriedade "token" não é nula.', async () => {
     const response = await chai.request(app)
       .post('/login')
       .send({
